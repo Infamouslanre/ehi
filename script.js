@@ -6,7 +6,11 @@ const SENTENCES = [
     "ehi is the best girlfriend",
     "ehi has the best style",
     "ehi is gorgeous",
-    "ehi is smart"
+    "ehi is smart", 
+    "ehi is sexy",
+    "ehi is the best",
+    "ehi is beautiful", 
+    "ehi is amazing"
   ];
   
   let sentence = [];
