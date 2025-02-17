@@ -7,12 +7,13 @@ body {
   }
   
   .container {
-    max-width: 90%;
+    max-width: 100%;
     margin: 20px auto;
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
   }
   
   h1 {
@@ -21,7 +22,8 @@ body {
   }
   
   #board {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 5px;
     margin: 20px 0;
   }
@@ -30,10 +32,12 @@ body {
     display: flex;
     gap: 5px;
     justify-content: center;
+    flex-wrap: wrap; /* Allow rows to wrap on smaller screens */
   }
   
   .cell {
-    width: 80px; /* Default width, will be overridden by JavaScript */
+    flex: 1 1 100px; /* Grow, shrink, and set a base width */
+    max-width: 120px; /* Maximum width for cells */
     height: 40px;
     display: flex;
     align-items: center;
@@ -43,6 +47,7 @@ body {
     font-weight: bold;
     background-color: #f9f9f9;
     border-radius: 5px;
+    box-sizing: border-box;
   }
   
   .cell.green {
@@ -60,24 +65,36 @@ body {
     color: white;
   }
   
+  /* Input and Buttons Container */
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px; /* Limit width on desktop */
+    margin: 0 auto; /* Center the container */
+  }
+  
   #guess-input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     font-size: 16px;
-    margin-bottom: 10px;
     box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 5px;
   }
   
   #submit-guess, #restart-button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
     cursor: pointer;
     background-color: #6aaa64;
     color: white;
     border: none;
     border-radius: 5px;
-    margin-top: 10px;
-    width: 90%;
+    box-sizing: border-box;
   }
   
   #submit-guess:hover, #restart-button:hover {
@@ -101,7 +118,8 @@ body {
     }
   
     .cell {
-      width: 60px; /* Smaller cells for mobile */
+      flex: 1 1 60px; /* Smaller base width for mobile */
+      max-width: 80px; /* Smaller max width for mobile */
       height: 30px;
       font-size: 14px;
     }

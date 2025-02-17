@@ -24,7 +24,6 @@ const SENTENCES = [
     sentence = chooseSentence().split(" ");
     currentAttempt = 0;
     renderBoard();
-    adjustContainerSize();
     guessInput.disabled = false;
     submitButton.disabled = false;
     restartButton.style.display = "none";
@@ -51,23 +50,6 @@ const SENTENCES = [
       }
       board.appendChild(row);
     }
-  }
-  
-  // Adjust the container and cell sizes dynamically
-  function adjustContainerSize() {
-    const numWords = sentence.length;
-    const cellWidth = Math.min(80, 600 / numWords); // Adjust cell width for mobile
-    const containerWidth = numWords * (cellWidth + 10); // Add gap between cells
-  
-    // Set cell width
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach(cell => {
-      cell.style.width = `${cellWidth}px`;
-    });
-  
-    // Set container width
-    const container = document.querySelector(".container");
-    container.style.width = `${containerWidth}px`;
   }
   
   // Check the guess and update the board
