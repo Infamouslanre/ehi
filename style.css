@@ -7,9 +7,9 @@ body {
   }
   
   .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 10px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -17,6 +17,7 @@ body {
   
   h1 {
     color: #333;
+    font-size: 24px;
   }
   
   #board {
@@ -32,7 +33,7 @@ body {
   }
   
   .cell {
-    width: 100px;
+    width: 80px; /* Default width, will be overridden by JavaScript */
     height: 40px;
     display: flex;
     align-items: center;
@@ -60,13 +61,14 @@ body {
   }
   
   #guess-input {
-    width: 80%;
+    width: 90%;
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
+    box-sizing: border-box;
   }
   
-  #submit-guess {
+  #submit-guess, #restart-button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -74,14 +76,42 @@ body {
     color: white;
     border: none;
     border-radius: 5px;
+    margin-top: 10px;
+    width: 90%;
   }
   
-  #submit-guess:hover {
+  #submit-guess:hover, #restart-button:hover {
     background-color: #5a9954;
+  }
+  
+  #restart-button {
+    display: none;
   }
   
   #message {
     margin-top: 20px;
     font-size: 18px;
     color: #333;
+  }
+  
+  /* Mobile-specific adjustments */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 20px;
+    }
+  
+    .cell {
+      width: 60px; /* Smaller cells for mobile */
+      height: 30px;
+      font-size: 14px;
+    }
+  
+    #guess-input, #submit-guess, #restart-button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    #message {
+      font-size: 16px;
+    }
   }

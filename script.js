@@ -1,9 +1,12 @@
 const SENTENCES = [
-    "will you be my girlfirend",
+    "will you be my girlfriend",
     "will you be my valentine",
-    "you are the love of my life",
+    "you're the love of my life",
     "my brother in atlantic city",
-    "ehi is the best girlfriend"
+    "ehi is the best girlfriend",
+    "ehi has the best style",
+    "ehi is gorgeous",
+    "ehi is smart"
   ];
   
   let sentence = [];
@@ -13,12 +16,21 @@ const SENTENCES = [
   const board = document.getElementById("board");
   const guessInput = document.getElementById("guess-input");
   const submitButton = document.getElementById("submit-guess");
+  const restartButton = document.getElementById("restart-button");
   const message = document.getElementById("message");
   
   // Initialize the game
   function init() {
     sentence = chooseSentence().split(" ");
+    currentAttempt = 0;
     renderBoard();
+    adjustContainerSize();
+    guessInput.disabled = false;
+    submitButton.disabled = false;
+    restartButton.style.display = "none";
+    message.textContent = "";
+    guessInput.value = "";
+    guessInput.focus(); // Focus the input for better mobile experience
   }
   
   // Choose a random sentence
@@ -39,6 +51,23 @@ const SENTENCES = [
       }
       board.appendChild(row);
     }
+  }
+  
+  // Adjust the container and cell sizes dynamically
+  function adjustContainerSize() {
+    const numWords = sentence.length;
+    const cellWidth = Math.min(80, 600 / numWords); // Adjust cell width for mobile
+    const containerWidth = numWords * (cellWidth + 10); // Add gap between cells
+  
+    // Set cell width
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+      cell.style.width = `${cellWidth}px`;
+    });
+  
+    // Set container width
+    const container = document.querySelector(".container");
+    container.style.width = `${containerWidth}px`;
   }
   
   // Check the guess and update the board
@@ -68,14 +97,21 @@ const SENTENCES = [
   
     if (correctCount === sentence.length) {
       message.textContent = "Congratulations! You guessed the sentence!";
-      submitButton.disabled = true;
+      endGame();
     } else {
       currentAttempt++;
       if (currentAttempt === attempts) {
         message.textContent = `Game over! The sentence was: ${sentence.join(" ")}`;
-        submitButton.disabled = true;
+        endGame();
       }
     }
+  }
+  
+  // End the game (win or lose)
+  function endGame() {
+    guessInput.disabled = true;
+    submitButton.disabled = true;
+    restartButton.style.display = "block";
   }
   
   // Event listener for the submit button
@@ -85,6 +121,22 @@ const SENTENCES = [
       checkGuess(guess);
       guessInput.value = "";
     }
+  });
+  
+  // Event listener for the Enter key
+  guessInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const guess = guessInput.value.trim();
+      if (guess) {
+        checkGuess(guess);
+        guessInput.value = "";
+      }
+    }
+  });
+  
+  // Event listener for the restart button
+  restartButton.addEventListener("click", () => {
+    init();
   });
   
   // Initialize the game when the page loads
